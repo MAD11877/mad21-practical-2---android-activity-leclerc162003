@@ -7,26 +7,26 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     User user = new User("hong", "ifhs", 1, false);
+    private TextView textBiew;
+    private TextView cl;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.d("debug", "create");
+        this.textBiew = findViewById(R.id.textBiew);
+        this.cl = findViewById(R.id.cl);
+        User user = new User("hong", "ifhs", 1, false);
 
-//        if (v.followed == false){
-//            Button text=(Button)findViewById(R.id.follow);
-//            text.setText("follow");
-//        }
-//        else{
-//            Button text=(Button)findViewById(R.id.follow);
-//            text.setText("followed");
-//        }
+        this.setUser(user);
+
 
         Button button = (Button) findViewById(R.id.follow);
-        //button.setTag(1);
+
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -34,11 +34,11 @@ public class MainActivity extends AppCompatActivity {
                 //int status = (Integer) v.getTag();
                 if (user.followed == true){
 
-                    button.setText("Follow");
+                    button.setText("Unfollow");
                     user.setFollowed(false);
                 }
                 else{
-                    button.setText("Unfollow");
+                    button.setText("follow");
                     user.setFollowed(true);
                 }
             }
@@ -49,6 +49,18 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    private void setUser(User user){
+        this.user = user;
+        this.updateUserInfo();
+
+    }
+
+    private void updateUserInfo() {
+        this.textBiew.setText(user.getName());
+        this.cl.setText(user.getDescription());
+    }
+
 
     @Override
     protected void onStart() {
